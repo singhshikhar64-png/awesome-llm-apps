@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About MedVance India – Our Story, Mission & Team</title>
+  <meta name="description" content="Learn about MedVance India's 28-year journey, global certifications, expert leadership team, and commitment to advancing global healthcare." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    #scroll-progress { position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--primary-light),var(--accent));z-index:1001;transition:width 0.1s linear; }
+    /* Values section */
+    .values-section { padding: var(--section-padding); background: var(--white); }
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; }
+    .value-card {
+      border-radius: var(--border-radius);
+      padding: 36px 28px;
+      background: var(--light-bg);
+      border-top: 5px solid var(--primary);
+      transition: var(--transition);
+      text-align: center;
+    }
+    .value-card:nth-child(2) { border-top-color: var(--primary-light); }
+    .value-card:nth-child(3) { border-top-color: var(--accent-warm); }
+    .value-card:nth-child(4) { border-top-color: var(--accent); }
+    .value-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .value-icon { font-size: 2.4rem; margin-bottom: 16px; display: block; }
+    .value-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; }
+    .value-text { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+
+    /* Awards section */
+    .awards-section { padding: var(--section-padding); background: var(--light-bg); }
+    .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .award-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 28px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .award-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-warm), var(--primary-light));
+    }
+    .award-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+    .award-year { font-size: 0.75rem; font-weight: 700; color: var(--primary); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+    .award-icon { font-size: 2.2rem; margin: 12px 0; }
+    .award-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+    .award-body { font-size: 0.8rem; color: var(--gray); }
+
+    /* Globe SVG animation */
+    .globe-section { padding: 80px 0; background: linear-gradient(135deg, var(--primary-dark), var(--primary)); }
+    .globe-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .globe-text h2 { font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 800; color: var(--white); margin-bottom: 20px; }
+    .globe-text h2 span { color: var(--accent); }
+    .globe-text p { color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 16px; }
+    .globe-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+    .globe-stat { background: rgba(255,255,255,0.1); border-radius: 10px; padding: 16px; text-align: center; }
+    .globe-stat .num { font-size: 1.6rem; font-weight: 900; color: var(--accent); }
+    .globe-stat .lbl { font-size: 0.8rem; color: rgba(255,255,255,0.65); margin-top: 4px; }
+    .globe-visual { display: flex; justify-content: center; align-items: center; }
+    #globe-canvas {
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(10,147,150,0.4), rgba(0,30,50,0.95));
+      box-shadow: 0 0 60px rgba(148,210,189,0.25), inset 0 0 60px rgba(0,0,0,0.4);
+      animation: float 5s ease-in-out infinite;
+    }
+    @media (max-width:1024px){ .globe-layout { grid-template-columns:1fr; } .globe-visual { display:none; } }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="page-loader">
+    <div class="loader-logo">Med<span>Vance</span> India</div>
+    <div class="loader-bar"></div>
+  </div>
+  <div id="scroll-progress"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" style="background:rgba(0,61,77,0.97);">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">⚕️</div>
+        <div class="logo-text">Med<span>Vance</span> India</div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="about-hero">
+    <canvas id="dna-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+    <div class="hero-overlay" style="z-index:1;"></div>
+    <div class="page-hero-content" style="z-index:2;padding-top:80px;padding-bottom:40px;">
+      <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> About Us</div>
+      <h1>Our <span>Story</span> & Mission</h1>
+      <p>28 years of relentless innovation in medical device manufacturing — rooted in India, healing the world.</p>
+    </div>
+    <div class="about-hero-waves">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display:block;width:100%;height:80px;">
+        <path fill="#ffffff" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="mission-section" id="mission">
+    <div class="section-container">
+      <div class="mission-grid">
+        <div class="mission-text reveal-left">
+          <div class="section-tag" style="text-align:left;display:inline-block;">Who We Are</div>
+          <h2 style="margin-top:12px;">Built on <span>Purpose</span>,<br>Driven by <span>Precision</span></h2>
+          <p>MedVance India Pvt. Ltd. was founded in 1996 in Pune, Maharashtra with a bold vision: to make world-class medical devices accessible to every healthcare system, from elite hospitals in Europe to rural health centres in Sub-Saharan Africa.</p>
+          <p>Today, with over 1,200 employees, 3 manufacturing plants, and 200+ product lines, we are India's fastest-growing medical device exporter — and a trusted partner to governments, hospitals, and distributors in 50+ countries.</p>
+          <a href="products.html" class="btn-primary" style="display:inline-flex;margin-top:8px;">Explore Our Products →</a>
+        </div>
+        <div class="mission-cards reveal-right">
+          <div class="mission-card">
+            <div class="mission-card-icon">🎯</div>
+            <div>
+              <h4>Our Mission</h4>
+              <p>To engineer precision medical devices that empower healthcare professionals and save lives globally — with unmatched quality, safety, and affordability.</p>
+            </div>
+          </div>
+          <div class="mission-card">
+            <div class="mission-card-icon">🔭</div>
+            <div>
+              <h4>Our Vision</h4>
+              <p>To be among the world's top 10 medical device manufacturers by 2030, leading through innovation, sustainability, and social impact.</p>
+            </div>
+          </div>
+          <div class="mission-card">
+            <div class="mission-card-icon">💡</div>
+            <div>
+              <h4>Our Innovation Pledge</h4>
+              <p>8% of annual revenue reinvested into R&D — building AI-integrated, IoT-enabled next-gen medical solutions.</p>
+            </div>
+          </div>
+          <div class="mission-card">
+            <div class="mission-card-icon">🌱</div>
+            <div>
+              <h4>Our ESG Commitment</h4>
+              <p>Carbon neutral manufacturing by 2028. 100% traceable supply chain. 5% products donated to underserved communities.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag reveal">Core Values</div>
+        <h2 class="section-title reveal delay-1">The Principles that <span>Guide Us</span></h2>
+        <div class="divider reveal delay-2"></div>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal delay-1">
+          <span class="value-icon">🔬</span>
+          <h3 class="value-title">Scientific Rigour</h3>
+          <p class="value-text">Every decision is evidence-based. We invest in clinical validation before any product reaches market.</p>
+        </div>
+        <div class="value-card reveal delay-2">
+          <span class="value-icon">🤝</span>
+          <h3 class="value-title">Patient First</h3>
+          <p class="value-text">The patient's safety and outcome is the non-negotiable north star of everything we design and build.</p>
+        </div>
+        <div class="value-card reveal delay-3">
+          <span class="value-icon">🌿</span>
+          <h3 class="value-title">Sustainability</h3>
+          <p class="value-text">We manufacture responsibly — minimising environmental impact without compromising quality or safety.</p>
+        </div>
+        <div class="value-card reveal delay-4">
+          <span class="value-icon">🚀</span>
+          <h3 class="value-title">Bold Innovation</h3>
+          <p class="value-text">We challenge conventional thinking. Our R&D teams prototype, fail, learn, and iterate — fast.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Timeline -->
+  <section class="timeline-section" id="timeline">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag reveal">Our Journey</div>
+        <h2 class="section-title reveal delay-1">28 Years of <span>Milestones</span></h2>
+        <p class="section-desc reveal delay-2">From a small Pune workshop to a global medical device powerhouse.</p>
+        <div class="divider reveal delay-3"></div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal-left">
+          <div class="timeline-content">
+            <div class="timeline-year">1996</div>
+            <h3 class="timeline-title">🏭 Founded in Pune</h3>
+            <p class="timeline-desc">Dr. Vikram Mehta and Dr. Ananya Krishnan co-founded MedVance in a 2,000 sq.ft. workshop with 12 employees and a dream to build world-class surgical instruments.</p>
+          </div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-spacer"></div>
+        </div>
+        <div class="timeline-item reveal-right">
+          <div class="timeline-spacer"></div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2001</div>
+            <h3 class="timeline-title">🏅 First ISO Certification</h3>
+            <p class="timeline-desc">Achieved ISO 9001 and received first major government supply contract for surgical kits to district hospitals across Maharashtra.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-left">
+          <div class="timeline-content">
+            <div class="timeline-year">2005</div>
+            <h3 class="timeline-title">🌍 First International Export</h3>
+            <p class="timeline-desc">Entered South-East Asian markets (Bangladesh, Sri Lanka). Opened a dedicated export division. Revenue crossed ₹50 crore.</p>
+          </div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-spacer"></div>
+        </div>
+        <div class="timeline-item reveal-right">
+          <div class="timeline-spacer"></div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2010</div>
+            <h3 class="timeline-title">⭐ CE Mark & European Entry</h3>
+            <p class="timeline-desc">Obtained CE marking for 40 product lines. Signed distribution agreements with partners in Germany, France, and Netherlands. Hired 300 new engineers.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-left">
+          <div class="timeline-content">
+            <div class="timeline-year">2015</div>
+            <h3 class="timeline-title">🇺🇸 FDA 510(k) Clearance</h3>
+            <p class="timeline-desc">Three flagship products cleared by the US FDA. Partnered with MedLine Inc. for North American distribution. Revenue crosses ₹500 crore.</p>
+          </div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-spacer"></div>
+        </div>
+        <div class="timeline-item reveal-right">
+          <div class="timeline-spacer"></div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2019</div>
+            <h3 class="timeline-title">🤖 AI & IoT Lab Launched</h3>
+            <p class="timeline-desc">Inaugurated India's first dedicated AI-medical device research lab in Hinjewadi, Pune. Launched connected health platform MedLink™.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-left">
+          <div class="timeline-content">
+            <div class="timeline-year">2020</div>
+            <h3 class="timeline-title">🦠 COVID-19 Response</h3>
+            <p class="timeline-desc">Pivoted to manufacture 2M+ ventilator parts, 5M PPE kits, and 500K oximeters donated/supplied under PM CARES Fund. Recognised by Ministry of Health.</p>
+          </div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-spacer"></div>
+        </div>
+        <div class="timeline-item reveal-right">
+          <div class="timeline-spacer"></div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2024</div>
+            <h3 class="timeline-title">🏆 50+ Countries & ₹1000 Cr</h3>
+            <p class="timeline-desc">Crossed ₹1,000 crore annual revenue. Operating in 50+ countries. Listed in Business Today's "Top 10 Indian MedTech Companies".</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Global Reach Globe -->
+  <section class="globe-section">
+    <div class="section-container">
+      <div class="globe-layout">
+        <div class="globe-text reveal-left">
+          <div class="section-tag" style="background:rgba(148,210,189,0.2);color:var(--accent);">Global Footprint</div>
+          <h2 style="margin-top:14px;">Healing Lives Across <span>6 Continents</span></h2>
+          <p>From Pune to Paris, Mumbai to Manila — MedVance India's devices are at work in operating theatres, ICUs, and community clinics worldwide.</p>
+          <p>Our products are distributed through 80+ authorised partners, and we hold in-country regulatory approvals in 35 markets.</p>
+          <div class="globe-stats">
+            <div class="globe-stat">
+              <div class="num" data-count="50" data-suffix="+">50+</div>
+              <div class="lbl">Countries</div>
+            </div>
+            <div class="globe-stat">
+              <div class="num" data-count="80" data-suffix="+">80+</div>
+              <div class="lbl">Distribution Partners</div>
+            </div>
+            <div class="globe-stat">
+              <div class="num" data-count="35" data-suffix="">35</div>
+              <div class="lbl">Regulatory Approvals</div>
+            </div>
+            <div class="globe-stat">
+              <div class="num" data-count="5" data-suffix="M+">5M+</div>
+              <div class="lbl">Annual Device Supply</div>
+            </div>
+          </div>
+        </div>
+        <div class="globe-visual reveal-right">
+          <canvas id="globe-canvas" width="340" height="340"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership Team -->
+  <section class="team-section" id="team">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag reveal">Leadership</div>
+        <h2 class="section-title reveal delay-1">Meet the <span>Visionaries</span></h2>
+        <p class="section-desc reveal delay-2">Our leadership team brings decades of expertise in medtech, engineering, and global healthcare.</p>
+        <div class="divider reveal delay-3"></div>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal delay-1">
+          <div class="team-card-header">
+            <div class="team-avatar">VM</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-name">Dr. Vikram Mehta</div>
+            <div class="team-role">Co-Founder & CEO</div>
+            <p class="team-bio">MBBS (AIIMS), MBA (Harvard). 30+ years in MedTech entrepreneurship. Former Senior Advisor, WHO Medical Device Programme.</p>
+          </div>
+        </div>
+        <div class="team-card reveal delay-2">
+          <div class="team-card-header" style="background:linear-gradient(135deg,var(--primary-light),var(--accent));">
+            <div class="team-avatar">AK</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-name">Dr. Ananya Krishnan</div>
+            <div class="team-role">Co-Founder & CTO</div>
+            <p class="team-bio">PhD Biomedical Engg (IIT Bombay). Holds 28 patents in medical device design. National Science Academy Fellow.</p>
+          </div>
+        </div>
+        <div class="team-card reveal delay-3">
+          <div class="team-card-header" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));">
+            <div class="team-avatar">RS</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-name">Rajesh Sharma</div>
+            <div class="team-role">Chief Operations Officer</div>
+            <p class="team-bio">IIM Ahmedabad alumnus. Lean Six Sigma Master Black Belt. Led manufacturing scale-up from 2 to 3 plants and 400% capacity increase.</p>
+          </div>
+        </div>
+        <div class="team-card reveal delay-4">
+          <div class="team-card-header" style="background:linear-gradient(135deg,var(--accent),var(--primary-light));">
+            <div class="team-avatar">PD</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-name">Priya Desai</div>
+            <div class="team-role">Chief Regulatory Officer</div>
+            <p class="team-bio">20+ years navigating CDSCO, FDA, and EU MDR. Previously at Medtronic and Siemens Healthineers. Cleared 60+ product submissions.</p>
+          </div>
+        </div>
+        <div class="team-card reveal delay-1">
+          <div class="team-card-header" style="background:linear-gradient(135deg,#1a1a2e,var(--primary));">
+            <div class="team-avatar">AR</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-name">Arjun Rao</div>
+            <div class="team-role">Chief Revenue Officer</div>
+            <p class="team-bio">Grew international revenue from ₹80Cr to ₹600Cr in 8 years. Built distribution networks across Europe, MENA, and APAC.</p>
+          </div>
+        </div>
+        <div class="team-card reveal delay-2">
+          <div class="team-card-header" style="background:linear-gradient(135deg,var(--primary-light),#1a1a2e);">
+            <div class="team-avatar">NK</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-name">Neha Kulkarni</div>
+            <div class="team-role">Head of R&D</div>
+            <p class="team-bio">PhD Nanotechnology (UCL). Leads 200-engineer AI-medical lab. Pioneer of MedLink™ IoT health platform, recognised at CES 2023.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section class="cert-section" id="certs">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag reveal">Quality Assurance</div>
+        <h2 class="section-title reveal delay-1"><span>Certifications</span> & Regulatory Approvals</h2>
+        <p class="section-desc reveal delay-2">We meet and exceed the world's most rigorous regulatory standards.</p>
+        <div class="divider reveal delay-3"></div>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card reveal delay-1">
+          <div class="cert-badge">🏅</div>
+          <div class="cert-name">ISO 13485:2016</div>
+          <div class="cert-body">Medical Device Quality Management Systems</div>
+        </div>
+        <div class="cert-card reveal delay-2">
+          <div class="cert-badge">⭐</div>
+          <div class="cert-name">CE Mark (EU MDR)</div>
+          <div class="cert-body">European Conformity for 80+ Products</div>
+        </div>
+        <div class="cert-card reveal delay-3">
+          <div class="cert-badge">🇺🇸</div>
+          <div class="cert-name">FDA 510(k)</div>
+          <div class="cert-body">US Food & Drug Administration Cleared</div>
+        </div>
+        <div class="cert-card reveal delay-4">
+          <div class="cert-badge">🇮🇳</div>
+          <div class="cert-name">CDSCO Licensed</div>
+          <div class="cert-body">Central Drugs Standard Control Organisation</div>
+        </div>
+        <div class="cert-card reveal delay-1">
+          <div class="cert-badge">🌐</div>
+          <div class="cert-name">WHO PQ</div>
+          <div class="cert-body">World Health Organization Prequalified</div>
+        </div>
+        <div class="cert-card reveal delay-2">
+          <div class="cert-badge">✅</div>
+          <div class="cert-name">BIS Certified</div>
+          <div class="cert-body">Bureau of Indian Standards</div>
+        </div>
+        <div class="cert-card reveal delay-3">
+          <div class="cert-badge">🌿</div>
+          <div class="cert-name">ISO 14001</div>
+          <div class="cert-body">Environmental Management System</div>
+        </div>
+        <div class="cert-card reveal delay-4">
+          <div class="cert-badge">🔒</div>
+          <div class="cert-name">IEC 62304</div>
+          <div class="cert-body">Medical Device Software Lifecycle</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards -->
+  <section class="awards-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag reveal">Recognition</div>
+        <h2 class="section-title reveal delay-1">Awards & <span>Honours</span></h2>
+        <div class="divider reveal delay-2"></div>
+      </div>
+      <div class="awards-grid">
+        <div class="award-card reveal delay-1">
+          <div class="award-year">2024</div>
+          <div class="award-icon">🏆</div>
+          <div class="award-name">BT MedTech Leader</div>
+          <div class="award-body">Business Today Top 10 Indian MedTech</div>
+        </div>
+        <div class="award-card reveal delay-2">
+          <div class="award-icon">🥇</div>
+          <div class="award-year">2023</div>
+          <div class="award-name">Make in India Excellence</div>
+          <div class="award-body">Ministry of Commerce & Industry</div>
+        </div>
+        <div class="award-card reveal delay-3">
+          <div class="award-icon">🌟</div>
+          <div class="award-year">2022</div>
+          <div class="award-name">CES Innovation Award</div>
+          <div class="award-body">MedLink™ IoT Platform, Las Vegas</div>
+        </div>
+        <div class="award-card reveal delay-4">
+          <div class="award-icon">🎖️</div>
+          <div class="award-year">2021</div>
+          <div class="award-name">PM Award – COVID Response</div>
+          <div class="award-body">Critical medical supply during pandemic</div>
+        </div>
+        <div class="award-card reveal delay-1">
+          <div class="award-icon">💼</div>
+          <div class="award-year">2020</div>
+          <div class="award-name">Dun & Bradstreet Ranking</div>
+          <div class="award-body">India's Top 500 Companies</div>
+        </div>
+        <div class="award-card reveal delay-2">
+          <div class="award-icon">🔬</div>
+          <div class="award-year">2019</div>
+          <div class="award-name">FICCI Healthcare Award</div>
+          <div class="award-body">Best Medical Device Innovation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="reveal">Join the <span style="color:var(--accent)">MedVance Family</span></h2>
+      <p class="reveal delay-1">Partner with us as a distributor, research collaborator, or supplier. Let's advance global healthcare together.</p>
+      <div class="cta-buttons reveal delay-2">
+        <a href="contact.html" class="btn-primary">📩 Get in Touch</a>
+        <a href="products.html" class="btn-outline">📋 View Products</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-text">Med<span>Vance</span> India</span>
+        <p>World-class medical device manufacturer headquartered in Pune, India. Committed to improving global health through precision engineering and innovation since 1996.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">💼</a>
+          <a href="#" class="social-link">🐦</a>
+          <a href="#" class="social-link">▶️</a>
+          <a href="#" class="social-link">📘</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html#mission">Mission & Vision</a></li>
+          <li><a href="about.html#team">Leadership Team</a></li>
+          <li><a href="about.html#certs">Certifications</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="products.html">Surgical Devices</a></li>
+          <li><a href="products.html">Diagnostics</a></li>
+          <li><a href="products.html">Patient Monitoring</a></li>
+          <li><a href="products.html">Imaging Systems</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="contact.html">General Enquiry</a></li>
+          <li><a href="contact.html">Sales & Partnerships</a></li>
+          <li><a href="contact.html">Technical Support</a></li>
+          <li><a href="contact.html">Distributors</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 MedVance India Pvt. Ltd. · All Rights Reserved · Pune, Maharashtra, India</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top">↑</button>
+  <script src="js/main.js"></script>
+  <script>
+    // Globe canvas animation
+    (function() {
+      const canvas = document.getElementById('globe-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width, H = canvas.height;
+      const cx = W / 2, cy = H / 2, R = W * 0.44;
+      let angle = 0;
+
+      const dots = [];
+      for (let lat = -80; lat <= 80; lat += 18) {
+        const r = Math.cos(lat * Math.PI / 180);
+        const count = Math.max(1, Math.round(r * 18));
+        for (let i = 0; i < count; i++) {
+          const lon = (i / count) * 360 - 180;
+          dots.push({ lat: lat * Math.PI / 180, lon: lon * Math.PI / 180 });
+        }
+      }
+
+      function project(lat, lon) {
+        const adjLon = lon + angle;
+        const x = cx + R * Math.cos(lat) * Math.sin(adjLon);
+        const y = cy - R * Math.sin(lat);
+        const z = Math.cos(lat) * Math.cos(adjLon);
+        return { x, y, z };
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        // Sphere outline
+        ctx.beginPath();
+        ctx.arc(cx, cy, R, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(148,210,189,0.15)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Dots
+        dots.forEach(d => {
+          const p = project(d.lat, d.lon);
+          if (p.z > 0) {
+            const alpha = 0.2 + p.z * 0.6;
+            const size = 1 + p.z * 2;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(148,210,189,${alpha})`;
+            ctx.fill();
+          }
+        });
+
+        // Highlight India region
+        const indiaP = project(20 * Math.PI / 180, 78 * Math.PI / 180);
+        if (indiaP.z > 0) {
+          ctx.beginPath();
+          ctx.arc(indiaP.x, indiaP.y, 8, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(233,196,106,0.9)';
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(indiaP.x, indiaP.y, 14, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(233,196,106,0.4)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+
+        angle += 0.008;
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+  </script>
+</body>
+</html>

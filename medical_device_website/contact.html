@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact MedVance India – Get in Touch</title>
+  <meta name="description" content="Contact MedVance India for product enquiries, partnerships, distributor applications, and technical support. We respond within 24 hours." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    #scroll-progress { position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--primary-light),var(--accent));z-index:1001;transition:width 0.1s linear; }
+
+    /* Contact hero */
+    .contact-hero {
+      min-height: 50vh;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    #contact-hero-canvas { position: absolute; inset: 0; }
+
+    /* Office cards */
+    .offices-section { padding: var(--section-padding); background: var(--light-bg); }
+    .offices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+    .office-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border-top: 4px solid var(--primary);
+      text-align: center;
+    }
+    .office-card:nth-child(2) { border-top-color: var(--primary-light); }
+    .office-card:nth-child(3) { border-top-color: var(--accent-warm); }
+    .office-card:nth-child(4) { border-top-color: var(--accent); }
+    .office-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+    .office-flag { font-size: 2rem; margin-bottom: 12px; }
+    .office-city { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; }
+    .office-type { font-size: 0.78rem; color: var(--primary); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+    .office-addr { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+    /* Quick contact bar */
+    .quick-contact {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      padding: 36px 0;
+    }
+    .quick-contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+    .quick-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--white);
+    }
+    .quick-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .quick-item:hover .quick-icon { background: rgba(255,255,255,0.25); }
+    .quick-label { font-size: 0.75rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+    .quick-value { font-weight: 700; font-size: 0.95rem; }
+    .quick-value a { color: var(--white); text-decoration: none; }
+    .quick-value a:hover { color: var(--accent); }
+
+    /* Form tabs */
+    .form-type-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .form-type-tab {
+      padding: 8px 18px;
+      background: var(--light-bg);
+      border: 2px solid transparent;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--gray);
+      transition: var(--transition);
+    }
+    .form-type-tab.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+    .form-type-tab:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
+
+    /* Map section */
+    .map-section { background: var(--light-bg); }
+    .map-wrapper {
+      height: 400px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      position: relative;
+      overflow: hidden;
+    }
+    #map-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .map-overlay-info {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      color: var(--white);
+      padding: 20px 24px;
+      border-radius: 12px;
+      z-index: 2;
+      max-width: 300px;
+    }
+    .map-overlay-info h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; color: var(--accent); }
+    .map-overlay-info p { font-size: 0.82rem; color: rgba(255,255,255,0.8); line-height: 1.5; }
+
+    /* Chat popup */
+    .chat-bubble {
+      position: fixed;
+      bottom: 32px;
+      left: 32px;
+      z-index: 998;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .chat-btn {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      padding: 12px 22px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(0,95,115,0.4);
+      transition: var(--transition);
+    }
+    .chat-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,95,115,0.5); }
+    .chat-popup {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      width: 280px;
+      display: none;
+      animation: fadeInUp 0.3s ease;
+    }
+    .chat-popup.open { display: block; }
+    .chat-popup h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+    .chat-popup p { font-size: 0.82rem; color: var(--gray); margin-bottom: 12px; }
+    .chat-options { display: flex; flex-direction: column; gap: 8px; }
+    .chat-option {
+      padding: 8px 14px;
+      background: var(--light-bg);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      text-align: left;
+      color: var(--dark-text);
+    }
+    .chat-option:hover { background: rgba(0,95,115,0.1); color: var(--primary); }
+
+    /* Typing indicator */
+    .typing-dots { display: inline-flex; gap: 4px; align-items: center; }
+    .typing-dots span {
+      width: 6px; height: 6px;
+      background: var(--gray);
+      border-radius: 50%;
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } }
+
+    @media (max-width: 768px) {
+      .map-overlay-info { bottom: 16px; left: 16px; right: 16px; max-width: none; }
+      .chat-bubble { bottom: 90px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="page-loader">
+    <div class="loader-logo">Med<span>Vance</span> India</div>
+    <div class="loader-bar"></div>
+  </div>
+  <div id="scroll-progress"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" style="background:rgba(0,61,77,0.97);">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">⚕️</div>
+        <div class="logo-text">Med<span>Vance</span> India</div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="contact-hero">
+    <canvas id="contact-hero-canvas" style="width:100%;height:100%;"></canvas>
+    <div class="hero-overlay" style="z-index:1;"></div>
+    <div class="page-hero-content" style="z-index:2;padding-top:80px;padding-bottom:40px;">
+      <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Contact Us</div>
+      <h1>Let's <span>Connect</span></h1>
+      <p>Reach out for product enquiries, partnerships, distributor applications, or technical support. We respond within 24 hours.</p>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display:block;width:100%;height:80px;">
+        <path fill="#ffffff" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Quick Contact Bar -->
+  <div class="quick-contact">
+    <div class="section-container">
+      <div class="quick-contact-grid">
+        <div class="quick-item">
+          <div class="quick-icon">📞</div>
+          <div>
+            <div class="quick-label">Call Us</div>
+            <div class="quick-value"><a href="tel:+912040001234">+91-20-4000-1234</a></div>
+          </div>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon">📧</div>
+          <div>
+            <div class="quick-label">Email</div>
+            <div class="quick-value"><a href="mailto:info@medvanceindia.com">info@medvanceindia.com</a></div>
+          </div>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon">💬</div>
+          <div>
+            <div class="quick-label">WhatsApp Business</div>
+            <div class="quick-value"><a href="#">+91-98765-43210</a></div>
+          </div>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon">🕐</div>
+          <div>
+            <div class="quick-label">Business Hours</div>
+            <div class="quick-value">Mon–Sat, 9am–6pm IST</div>
+          </div>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon">🆘</div>
+          <div>
+            <div class="quick-label">24/7 Technical Support</div>
+            <div class="quick-value"><a href="tel:+912040009999">+91-20-4000-9999</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Contact Section -->
+  <section class="contact-section">
+    <div class="section-container">
+      <div class="contact-layout">
+
+        <!-- Left: Info -->
+        <div class="contact-info reveal-left">
+          <div class="section-tag" style="display:inline-block;margin-bottom:14px;">Reach Us</div>
+          <h3>We'd Love to <span>Hear From You</span></h3>
+          <p>Whether you're a hospital procurement manager, international distributor, research partner, or a clinician with a product question — our team is ready to assist.</p>
+
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-icon">🏭</div>
+              <div class="contact-detail">
+                <h4>Head Office & Manufacturing</h4>
+                <p>Plot No. 47, Hinjewadi Phase III<br>Pune – 411 057, Maharashtra, India</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🏙️</div>
+              <div class="contact-detail">
+                <h4>Mumbai Sales Office</h4>
+                <p>Unit 12B, Bandra Kurla Complex<br>Mumbai – 400 051, Maharashtra, India</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🌍</div>
+              <div class="contact-detail">
+                <h4>International Export Division</h4>
+                <p>SEEPZ SEZ, Andheri East<br>Mumbai – 400 096 | exports@medvanceindia.com</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🔧</div>
+              <div class="contact-detail">
+                <h4>Technical Support Helpdesk</h4>
+                <p>support@medvanceindia.com<br>+91-20-4000-9999 (24×7)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Response time badges -->
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;">
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(40,167,69,0.1);border:1px solid rgba(40,167,69,0.3);color:#218838;border-radius:8px;padding:8px 14px;font-size:0.82rem;font-weight:700;">
+              ⚡ Avg. Response: 2 Hours
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(0,95,115,0.1);border:1px solid rgba(0,95,115,0.3);color:var(--primary);border-radius:8px;padding:8px 14px;font-size:0.82rem;font-weight:700;">
+              🌐 50+ Countries Served
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;background:rgba(233,196,106,0.15);border:1px solid rgba(233,196,106,0.5);color:#b8860b;border-radius:8px;padding:8px 14px;font-size:0.82rem;font-weight:700;">
+              🏆 ISO 13485 Certified
+            </div>
+          </div>
+
+          <div class="social-links">
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+            <a href="#" class="social-link" title="Twitter/X">🐦</a>
+            <a href="#" class="social-link" title="YouTube">▶️</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="Instagram">📸</a>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="reveal-right">
+          <div class="contact-form-card">
+            <h3>Send Us a Message</h3>
+
+            <!-- Form type tabs -->
+            <div class="form-type-tabs">
+              <button class="form-type-tab active" data-type="general">General Enquiry</button>
+              <button class="form-type-tab" data-type="quote">Request Quote</button>
+              <button class="form-type-tab" data-type="distributor">Distributorship</button>
+              <button class="form-type-tab" data-type="support">Technical Support</button>
+            </div>
+
+            <form id="contact-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fname">First Name *</label>
+                  <input type="text" id="fname" name="fname" placeholder="Dr. Ramesh" required />
+                  <div class="form-error"></div>
+                </div>
+                <div class="form-group">
+                  <label for="lname">Last Name *</label>
+                  <input type="text" id="lname" name="lname" placeholder="Agarwal" required />
+                  <div class="form-error"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" placeholder="you@hospital.com" required />
+                <div class="form-error"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" />
+                  <div class="form-error"></div>
+                </div>
+                <div class="form-group">
+                  <label for="country">Country *</label>
+                  <select id="country" name="country" required>
+                    <option value="">Select country…</option>
+                    <option>India</option>
+                    <option>United States</option>
+                    <option>United Kingdom</option>
+                    <option>Germany</option>
+                    <option>France</option>
+                    <option>UAE</option>
+                    <option>Saudi Arabia</option>
+                    <option>Singapore</option>
+                    <option>Bangladesh</option>
+                    <option>Sri Lanka</option>
+                    <option>Kenya</option>
+                    <option>Nigeria</option>
+                    <option>South Africa</option>
+                    <option>Australia</option>
+                    <option>Other</option>
+                  </select>
+                  <div class="form-error"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="organisation">Organisation / Hospital</label>
+                <input type="text" id="organisation" name="organisation" placeholder="Apollo Hospitals / Fortis / Ministry of Health…" />
+              </div>
+              <div class="form-group" id="product-field">
+                <label for="product">Product of Interest</label>
+                <select id="product" name="product">
+                  <option value="">Select product…</option>
+                  <option>SurgiFlow™ Infusion Pump</option>
+                  <option>CardioSense™ ECG Monitor</option>
+                  <option>NovaScan™ Portable Ultrasound</option>
+                  <option>VitaWatch™ Patient Monitor</option>
+                  <option>RapidDx™ POC Analyser</option>
+                  <option>OrthoFix™ Titanium Implant</option>
+                  <option>ClearView™ Digital X-Ray</option>
+                  <option>NeoNatal™ ICU Monitor</option>
+                  <option>Other / Multiple Products</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" placeholder="Tell us about your requirements, quantity, clinical context, or any questions…" required></textarea>
+                <div class="form-error"></div>
+              </div>
+              <div class="form-group" style="display:flex;align-items:flex-start;gap:10px;">
+                <input type="checkbox" id="consent" name="consent" required style="width:auto;margin-top:3px;" />
+                <label for="consent" style="font-size:0.82rem;color:var(--gray);font-weight:500;cursor:pointer;">
+                  I agree to the <a href="#" style="color:var(--primary);">Privacy Policy</a> and consent to MedVance India contacting me regarding my enquiry.
+                </label>
+              </div>
+              <button type="submit" class="btn-submit">
+                <span>Send Message</span> 📨
+              </button>
+            </form>
+            <div class="form-success">
+              <div class="success-icon">✅</div>
+              <h3>Message Sent Successfully!</h3>
+              <p>Thank you for contacting MedVance India. Our team will respond within <strong>2 business hours</strong>. Check your email for a confirmation.</p>
+              <br>
+              <a href="products.html" class="btn-primary" style="display:inline-flex;margin:0 auto;">Browse Our Products</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Office Locations -->
+  <section class="offices-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag reveal">Our Offices</div>
+        <h2 class="section-title reveal delay-1">Find Us <span>Worldwide</span></h2>
+        <div class="divider reveal delay-2"></div>
+      </div>
+      <div class="offices-grid">
+        <div class="office-card reveal delay-1">
+          <div class="office-flag">🇮🇳</div>
+          <div class="office-city">Pune (HQ)</div>
+          <div class="office-type">Global Headquarters & Manufacturing</div>
+          <div class="office-addr">Plot 47, Hinjewadi Phase III<br>Pune 411 057, Maharashtra<br>Tel: +91-20-4000-1234</div>
+        </div>
+        <div class="office-card reveal delay-2">
+          <div class="office-flag">🇮🇳</div>
+          <div class="office-city">Mumbai</div>
+          <div class="office-type">India Sales & Export Office</div>
+          <div class="office-addr">Unit 12B, Bandra Kurla Complex<br>Mumbai 400 051, Maharashtra<br>Tel: +91-22-6600-4400</div>
+        </div>
+        <div class="office-card reveal delay-3">
+          <div class="office-flag">🇩🇪</div>
+          <div class="office-city">Frankfurt</div>
+          <div class="office-type">European Representative Office</div>
+          <div class="office-addr">Bockenheimer Landstr. 47<br>60325 Frankfurt am Main, Germany<br>europe@medvanceindia.com</div>
+        </div>
+        <div class="office-card reveal delay-4">
+          <div class="office-flag">🇦🇪</div>
+          <div class="office-city">Dubai</div>
+          <div class="office-type">MENA & Africa Distribution Hub</div>
+          <div class="office-addr">Dubai Healthcare City, Block A<br>Dubai, United Arab Emirates<br>mena@medvanceindia.com</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Animated Map -->
+  <section class="map-section">
+    <div class="map-wrapper">
+      <canvas id="map-canvas"></canvas>
+      <div class="map-overlay-info">
+        <h4>📍 MedVance India HQ</h4>
+        <p>Plot 47, Hinjewadi Phase III<br>Pune – 411 057, Maharashtra, India</p>
+        <p style="margin-top:8px;color:var(--accent);font-size:0.78rem;font-weight:700;">🟡 Headquarters &nbsp;|&nbsp; 🔵 Export Hub</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag reveal">FAQ</div>
+        <h2 class="section-title reveal delay-1">Frequently Asked <span>Questions</span></h2>
+        <div class="divider reveal delay-2"></div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal delay-1">
+          <div class="faq-question">
+            <span>How do I request a product quote?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Fill in the contact form above (select "Request Quote" tab), specifying the product, estimated quantity, and delivery location. Our sales team responds within 2 business hours with pricing, MOQ details, and lead times. For urgent quotes, call +91-20-4000-1234.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal delay-2">
+          <div class="faq-question">
+            <span>Do you offer international shipping and export documentation?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes. MedVance India handles end-to-end export logistics including EXIM documentation, customs compliance, CE/FDA certificates of conformity, cold-chain shipping for temperature-sensitive devices, and DDP (Delivered Duty Paid) terms for select markets.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal delay-3">
+          <div class="faq-question">
+            <span>Can I become an authorised distributor?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">We actively seek distribution partners in Africa, MENA, South-East Asia, and LATAM. Select "Distributorship" in the contact form and tell us your region, existing medical device portfolio, and client base. Our partnership team will arrange a video call within 48 hours.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal delay-4">
+          <div class="faq-question">
+            <span>What regulatory approvals do your products carry?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">All products carry CDSCO (India) approval. Most carry CE Mark (EU MDR), and flagship products have FDA 510(k) clearance. WHO Prequalification is available for select diagnostic products. Country-specific regulatory dossiers can be provided on request for import registration.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal delay-5">
+          <div class="faq-question">
+            <span>Is on-site installation and training included?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">For capital equipment (patient monitors, imaging systems), installation, commissioning, and one-time in-service training for clinical staff are included in the purchase price. Annual maintenance contracts and preventive maintenance visits are available separately.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal delay-1">
+          <div class="faq-question">
+            <span>What is your minimum order quantity (MOQ) for consumables?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">MOQ varies by product. Consumables such as surgical kits, implant sets, and disposable accessories typically have an MOQ of 50–200 units per SKU. Instruments and capital equipment have MOQ of 1 unit. Sample/evaluation units are available for qualified buyers.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="reveal">Join <span style="color:var(--accent)">500+ Healthcare Partners</span> Worldwide</h2>
+      <p class="reveal delay-1">From single-unit purchases to government tenders — MedVance India is your trusted medical device partner.</p>
+      <div class="cta-buttons reveal delay-2">
+        <a href="products.html" class="btn-primary">🔭 Browse Products</a>
+        <a href="about.html" class="btn-outline">🏭 Learn About Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-text">Med<span>Vance</span> India</span>
+        <p>World-class medical device manufacturer headquartered in Pune, India. Committed to improving global health through precision engineering since 1996.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">💼</a>
+          <a href="#" class="social-link">🐦</a>
+          <a href="#" class="social-link">▶️</a>
+          <a href="#" class="social-link">📘</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html#team">Leadership</a></li>
+          <li><a href="about.html#certs">Certifications</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="products.html">Surgical</a></li>
+          <li><a href="products.html">Diagnostics</a></li>
+          <li><a href="products.html">Monitoring</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="contact.html">General Enquiry</a></li>
+          <li><a href="contact.html">Sales</a></li>
+          <li><a href="contact.html">Technical Support</a></li>
+          <li><a href="contact.html">Distributors</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 MedVance India Pvt. Ltd. · All Rights Reserved · Pune, Maharashtra, India</p>
+      <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+    </div>
+  </footer>
+
+  <button class="back-to-top">↑</button>
+
+  <!-- Chat Bubble -->
+  <div class="chat-bubble">
+    <div class="chat-popup" id="chat-popup">
+      <h4>👋 Hi there!</h4>
+      <p>How can we help you today?</p>
+      <div class="chat-options">
+        <button class="chat-option" onclick="window.location='#contact-form'">📋 Request a quote</button>
+        <button class="chat-option" onclick="window.location='products.html'">🔬 Browse products</button>
+        <button class="chat-option" onclick="window.location='tel:+912040001234'">📞 Call us now</button>
+        <button class="chat-option" onclick="document.getElementById('chat-popup').classList.remove('open')">✕ Close</button>
+      </div>
+    </div>
+    <button class="chat-btn" onclick="document.getElementById('chat-popup').classList.toggle('open')">
+      💬 Chat with Us
+    </button>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Hero canvas
+    (function(){
+      const canvas = document.getElementById('contact-hero-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      function resize(){ canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight; }
+      resize(); window.addEventListener('resize', resize);
+      const pts = Array.from({length:55},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:(Math.random()-.5)*.45,dy:(Math.random()-.5)*.45,r:Math.random()*2.2+.5,a:Math.random()*.4+.1}));
+      function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pts.forEach(p=>{ p.x+=p.dx; p.y+=p.dy; if(p.x<0||p.x>canvas.width)p.dx*=-1; if(p.y<0||p.y>canvas.height)p.dy*=-1; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=`rgba(148,210,189,${p.a})`; ctx.fill(); });
+        for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<100){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(148,210,189,${0.12*(1-d/100)})`;ctx.lineWidth=.8;ctx.stroke();}}
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // Form type tabs
+    document.querySelectorAll('.form-type-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.form-type-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        // Update placeholder text dynamically
+        const type = this.dataset.type;
+        const msgArea = document.getElementById('message');
+        const placeholders = {
+          general: 'Tell us about your requirements, quantity, clinical context, or any questions…',
+          quote: 'Please specify: Product name, quantity required, delivery country, and any special requirements…',
+          distributor: 'Tell us about your company, region, existing medical portfolio, and customer base…',
+          support: 'Describe the issue: product model, serial number, error description, and urgency level…'
+        };
+        if (msgArea) msgArea.placeholder = placeholders[type] || placeholders.general;
+      });
+    });
+  </script>
+</body>
+</html>

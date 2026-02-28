@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products – MedVance India Medical Devices</title>
+  <meta name="description" content="Explore MedVance India's comprehensive range of medical devices: surgical instruments, diagnostics, patient monitoring, imaging systems, and orthopaedic implants." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    #scroll-progress { position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--primary-light),var(--accent));z-index:1001;transition:width 0.1s linear; }
+
+    /* Hero */
+    .products-hero {
+      min-height: 50vh;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, #0a9396 100%);
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    #products-hero-canvas { position: absolute; inset: 0; }
+
+    /* Search */
+    .search-bar-wrapper {
+      background: var(--white);
+      padding: 32px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .search-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--light-bg);
+      border: 2px solid var(--light-gray);
+      border-radius: 10px;
+      padding: 10px 16px;
+      transition: var(--transition);
+    }
+    .search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,95,115,0.1); }
+    .search-box input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 0.95rem;
+      color: var(--dark-text);
+      outline: none;
+    }
+    .search-box input::placeholder { color: var(--gray); }
+    .search-icon { color: var(--gray); }
+    .result-count { font-size: 0.88rem; color: var(--gray); font-weight: 600; white-space: nowrap; }
+
+    /* Category sections */
+    .cat-hero {
+      padding: 32px 0 16px;
+      border-bottom: 2px solid var(--light-gray);
+      margin-bottom: 32px;
+    }
+    .cat-hero-inner { display: flex; align-items: center; gap: 16px; }
+    .cat-icon-big { font-size: 2.4rem; }
+    .cat-title { font-size: 1.4rem; font-weight: 800; }
+    .cat-desc { font-size: 0.88rem; color: var(--gray); margin-top: 2px; }
+
+    /* Comparison table */
+    .compare-section { padding: var(--section-padding); background: var(--light-bg); }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th {
+      background: var(--primary);
+      color: var(--white);
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .compare-table th:first-child { border-radius: 8px 0 0 0; }
+    .compare-table th:last-child { border-radius: 0 8px 0 0; }
+    .compare-table td { padding: 12px 16px; font-size: 0.88rem; border-bottom: 1px solid var(--light-gray); }
+    .compare-table tr:hover td { background: rgba(0,95,115,0.04); }
+    .compare-table .yes { color: #28a745; font-weight: 700; }
+    .compare-table .no { color: #dc3545; }
+    .table-wrapper { overflow-x: auto; border-radius: 10px; box-shadow: var(--shadow); }
+
+    /* Tech specs accordion */
+    .tech-highlight {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0,95,115,0.08);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 3px;
+    }
+
+    /* No results */
+    .no-results { text-align: center; padding: 60px 20px; display: none; }
+    .no-results.show { display: block; }
+    .no-results .icon { font-size: 3rem; margin-bottom: 12px; }
+    .no-results h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .no-results p { color: var(--gray); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div id="page-loader">
+    <div class="loader-logo">Med<span>Vance</span> India</div>
+    <div class="loader-bar"></div>
+  </div>
+  <div id="scroll-progress"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" style="background:rgba(0,61,77,0.97);">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">⚕️</div>
+        <div class="logo-text">Med<span>Vance</span> India</div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html" class="active">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+      </ul>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="products-hero">
+    <canvas id="products-hero-canvas" style="width:100%;height:100%;"></canvas>
+    <div class="hero-overlay" style="z-index:1;"></div>
+    <div class="page-hero-content" style="z-index:2;padding-top:80px;padding-bottom:40px;">
+      <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Products</div>
+      <h1>Our <span>Product</span> Portfolio</h1>
+      <p>200+ precision medical devices engineered in India, trusted by clinicians in 50+ countries.</p>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;right:0;z-index:2;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display:block;width:100%;height:80px;">
+        <path fill="#ffffff" d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Sticky Search + Filter -->
+  <div class="search-bar-wrapper">
+    <div class="search-inner">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="product-search" placeholder="Search products by name, category, or feature…" />
+      </div>
+      <div class="filter-tabs" style="margin:0;">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="surgical">Surgical</button>
+        <button class="filter-tab" data-filter="diagnostics">Diagnostics</button>
+        <button class="filter-tab" data-filter="monitoring">Monitoring</button>
+        <button class="filter-tab" data-filter="imaging">Imaging</button>
+        <button class="filter-tab" data-filter="ortho">Orthopaedic</button>
+      </div>
+      <div class="result-count" id="result-count">Showing 15 products</div>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <section class="products-section">
+    <div class="section-container">
+      <div class="products-grid" id="products-grid">
+
+        <!-- Surgical -->
+        <div class="product-card reveal delay-1"
+          data-category="surgical"
+          data-icon="💉"
+          data-name="SurgiFlow™ Infusion Pump"
+          data-desc="Smart IV infusion system with AI-assisted dose prediction, nurse alert system, and 36-hour backup battery. Supports 14 infusion modes including TCI and syringe driver. Deployed in 2,000+ ICUs globally."
+          data-features="AI-assisted dose prediction|36-hr battery backup|14 infusion modes|Real-time nurse alerts|Wireless connectivity|CE & FDA cleared">
+          <div class="product-image" style="background:linear-gradient(135deg,#005f73,#0a9396);">
+            💉
+            <span class="product-tag">Best Seller</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category">Surgical</div>
+            <h3 class="product-name">SurgiFlow™ Infusion Pump</h3>
+            <p class="product-desc">Smart IV infusion with AI-dose prediction. 14 modes, 36-hr battery, nurse alerts. Trusted in 2,000+ ICUs.</p>
+            <div class="product-specs">
+              <span class="spec-tag">AI-Assisted</span>
+              <span class="spec-tag">CE Marked</span>
+              <span class="spec-tag">FDA Cleared</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-2"
+          data-category="surgical"
+          data-icon="🔪"
+          data-name="PrecisionCut™ Laparoscopic Set"
+          data-desc="Complete 5-piece HD laparoscopic surgical instrument set in autoclavable titanium alloy. Ergonomic grip design, ultra-sharp tungsten carbide blades for minimally invasive procedures."
+          data-features="5-piece titanium set|Autoclavable 134°C|Tungsten carbide blades|Ergonomic grip|Lifetime warranty|CDSCO & CE approved">
+          <div class="product-image" style="background:linear-gradient(135deg,#003d4d,#005f73);">
+            🔪
+          </div>
+          <div class="product-body">
+            <div class="product-category">Surgical</div>
+            <h3 class="product-name">PrecisionCut™ Laparoscopic Set</h3>
+            <p class="product-desc">5-piece HD laparoscopic set in titanium alloy. Tungsten carbide blades, ergonomic grip, autoclavable.</p>
+            <div class="product-specs">
+              <span class="spec-tag">Titanium Alloy</span>
+              <span class="spec-tag">Autoclavable</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-3"
+          data-category="surgical"
+          data-icon="🩸"
+          data-name="HemoGuard™ Blood Warmer"
+          data-desc="Precision blood and IV fluid warming system maintaining exact 37°C during transfusion. Reduces hypothermia risk by 96%. Flow rates up to 150 mL/min. Alarm if temp deviates by ±0.5°C."
+          data-features="Maintains exact 37°C|Flow rate 150 mL/min|Hypothermia prevention|±0.5°C deviation alarm|Portable design|CE & FDA approved">
+          <div class="product-image" style="background:linear-gradient(135deg,#c0392b,#8e0101);">
+            🩸
+            <span class="product-tag">New</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category">Surgical</div>
+            <h3 class="product-name">HemoGuard™ Blood Warmer</h3>
+            <p class="product-desc">Precision blood/IV fluid warming at 37°C. 96% hypothermia reduction. Up to 150 mL/min flow rate.</p>
+            <div class="product-specs">
+              <span class="spec-tag">37°C Precision</span>
+              <span class="spec-tag">FDA Cleared</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Diagnostics -->
+        <div class="product-card reveal delay-1"
+          data-category="diagnostics"
+          data-icon="🧬"
+          data-name="RapidDx™ POC Analyser"
+          data-desc="Multi-parameter point-of-care diagnostics analyser for 28 blood markers including CBC, CRP, lipid panel, and HbA1c. Results in under 8 minutes. Wireless cloud upload with EMR integration."
+          data-features="28 blood marker panel|Results in &lt;8 minutes|Cloud EMR integration|WiFi + Bluetooth|Internal QC system|CDSCO & CE approved">
+          <div class="product-image" style="background:linear-gradient(135deg,#0a9396,#005f73);">
+            🧬
+            <span class="product-tag">Award Winning</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category">Diagnostics</div>
+            <h3 class="product-name">RapidDx™ POC Analyser</h3>
+            <p class="product-desc">28-marker blood panel in under 8 minutes. Cloud EMR sync, wireless, ideal for labs and clinics.</p>
+            <div class="product-specs">
+              <span class="spec-tag">28 Parameters</span>
+              <span class="spec-tag">Cloud Ready</span>
+              <span class="spec-tag">CE Marked</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-2"
+          data-category="diagnostics"
+          data-icon="🦠"
+          data-name="PathScan™ Digital Microscope"
+          data-desc="AI-assisted pathology microscope with 4K sensor (100x–1000x zoom), automated slide scanning, and cloud image sharing. Detects 40+ pathological conditions with 98.4% accuracy vs manual review."
+          data-features="4K sensor imaging|100x-1000x zoom|AI diagnosis assist|98.4% accuracy|Automated slide scan|Cloud sharing">
+          <div class="product-image" style="background:linear-gradient(135deg,#2d6a4f,#1a936f);">
+            🦠
+          </div>
+          <div class="product-body">
+            <div class="product-category">Diagnostics</div>
+            <h3 class="product-name">PathScan™ Digital Microscope</h3>
+            <p class="product-desc">AI-assisted 4K pathology microscope. 98.4% diagnostic accuracy, automated slide scan, cloud sharing.</p>
+            <div class="product-specs">
+              <span class="spec-tag">AI-Powered</span>
+              <span class="spec-tag">4K Sensor</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-3"
+          data-category="diagnostics"
+          data-icon="🔬"
+          data-name="BioLab™ Haematology Analyser"
+          data-desc="Fully automated 5-part differential haematology analyser. 80 samples/hour throughput. 24 CBC parameters, flagging system for abnormal cells, auto-dilution, and QC integration."
+          data-features="80 samples/hour|24 CBC parameters|5-part differential|Auto-dilution|Abnormal cell flagging|ISO 15189 compliant">
+          <div class="product-image" style="background:linear-gradient(135deg,#4a4e69,#2d2d5e);">
+            🔬
+            <span class="product-tag">New</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category">Diagnostics</div>
+            <h3 class="product-name">BioLab™ Haematology Analyser</h3>
+            <p class="product-desc">Automated 5-part differential CBC. 80 samples/hr, 24 parameters, abnormal cell flagging system.</p>
+            <div class="product-specs">
+              <span class="spec-tag">80 Samples/Hr</span>
+              <span class="spec-tag">24 Parameters</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monitoring -->
+        <div class="product-card reveal delay-1"
+          data-category="monitoring"
+          data-icon="❤️"
+          data-name="CardioSense™ ECG Monitor"
+          data-desc="12-lead wireless ECG monitor with AI arrhythmia detection achieving 97.8% sensitivity. Cloud sync, < 30 sec PDF report, DICOM compatible, long-term Holter recording up to 14 days."
+          data-features="12-lead wireless ECG|AI arrhythmia detection 97.8%|14-day Holter mode|< 30 sec PDF report|DICOM compatible|FDA 510(k) cleared">
+          <div class="product-image" style="background:linear-gradient(135deg,#c0392b,#005f73);">
+            ❤️
+            <span class="product-tag">Best Seller</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category">Patient Monitoring</div>
+            <h3 class="product-name">CardioSense™ ECG Monitor</h3>
+            <p class="product-desc">12-lead wireless ECG, AI arrhythmia detection, 14-day Holter, FDA cleared. 30-second reports.</p>
+            <div class="product-specs">
+              <span class="spec-tag">AI Detection</span>
+              <span class="spec-tag">FDA Cleared</span>
+              <span class="spec-tag">Wireless</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-2"
+          data-category="monitoring"
+          data-icon="💊"
+          data-name="VitaWatch™ Patient Monitor"
+          data-desc="15-inch touchscreen bedside multi-parameter patient monitor. SpO₂, NIBP, ECG, EtCO₂, temperature, respiration. Central station networking for 32 beds. 4-hr battery backup."
+          data-features="15-inch touchscreen|6 vital parameters|32-bed networking|4-hr battery backup|EtCO₂ monitoring|IEC 60601-1 compliant">
+          <div class="product-image" style="background:linear-gradient(135deg,#005f73,#2d6a4f);">
+            💊
+          </div>
+          <div class="product-body">
+            <div class="product-category">Patient Monitoring</div>
+            <h3 class="product-name">VitaWatch™ Patient Monitor</h3>
+            <p class="product-desc">15" touchscreen, 6-parameter bedside monitor. 32-bed networking, 4-hr battery, EtCO₂ included.</p>
+            <div class="product-specs">
+              <span class="spec-tag">6 Parameters</span>
+              <span class="spec-tag">32 Bed Network</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-3"
+          data-category="monitoring"
+          data-icon="🌡️"
+          data-name="NeoNatal™ ICU Monitor"
+          data-desc="Purpose-built neonatal intensive care monitor for premature infants. NIBP neonatal mode, incubator-safe design, ultra-sensitive SpO₂, skin temperature probe, and apnoea detection."
+          data-features="Neonatal NIBP mode|Apnoea detection|Skin temperature probe|Incubator safe|Ultra-sensitive SpO₂|IEC 60601-2-49">
+          <div class="product-image" style="background:linear-gradient(135deg,#f4a261,#e76f51);">
+            🌡️
+            <span class="product-tag">Specialised</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category">Patient Monitoring</div>
+            <h3 class="product-name">NeoNatal™ ICU Monitor</h3>
+            <p class="product-desc">Purpose-built for premature infants. Apnoea detection, skin temp, incubator-safe, ultra-sensitive SpO₂.</p>
+            <div class="product-specs">
+              <span class="spec-tag">Neonatal</span>
+              <span class="spec-tag">ICU Grade</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Imaging -->
+        <div class="product-card reveal delay-1"
+          data-category="imaging"
+          data-icon="🩻"
+          data-name="NovaScan™ Portable Ultrasound"
+          data-desc="Handheld 4D ultrasound with 128-element transducer, cloud PACS integration, and AI-assisted measurement tools. Battery: 5 hours continuous. Purpose-built for rural clinics and emergency response."
+          data-features="4D imaging|128-element transducer|Cloud PACS upload|AI measurement tools|5-hr battery|CE & CDSCO approved">
+          <div class="product-image" style="background:linear-gradient(135deg,#0a9396,#0077b6);">
+            🩻
+            <span class="product-tag">Award Winning</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category">Imaging</div>
+            <h3 class="product-name">NovaScan™ Portable Ultrasound</h3>
+            <p class="product-desc">Handheld 4D ultrasound, cloud PACS, AI tools, 5-hr battery. Ideal for rural and emergency settings.</p>
+            <div class="product-specs">
+              <span class="spec-tag">4D Imaging</span>
+              <span class="spec-tag">Portable</span>
+              <span class="spec-tag">Cloud PACS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-2"
+          data-category="imaging"
+          data-icon="🫁"
+          data-name="ClearView™ Digital X-Ray"
+          data-desc="High-resolution flat-panel digital X-ray system with 43x43 cm detector. DQE > 72%, dose reduction technology, DICOM 3.0 and RIS/HIS integration. Mobile and fixed room variants available."
+          data-features="43x43 cm flat panel|DQE > 72%|Dose reduction tech|DICOM 3.0 / RIS/HIS|Mobile & fixed variants|CE & FDA cleared">
+          <div class="product-image" style="background:linear-gradient(135deg,#1a1a2e,#005f73);">
+            🫁
+          </div>
+          <div class="product-body">
+            <div class="product-category">Imaging</div>
+            <h3 class="product-name">ClearView™ Digital X-Ray</h3>
+            <p class="product-desc">43x43 cm flat-panel digital X-ray. DQE > 72%, low dose, DICOM. Mobile and fixed room variants.</p>
+            <div class="product-specs">
+              <span class="spec-tag">Low Dose</span>
+              <span class="spec-tag">DICOM Ready</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-3"
+          data-category="imaging"
+          data-icon="🧲"
+          data-name="NeuroView™ MRI-Compatible Monitor"
+          data-desc="MRI-safe 15-inch multi-parameter monitor for use in 1.5T and 3T MRI environments. Fibre optic sensors, RF-shielded electronics, real-time streaming to control room."
+          data-features="1.5T & 3T MRI safe|Fibre optic sensors|RF-shielded electronics|15-inch display|Real-time streaming|IEC 60601-1 AM43">
+          <div class="product-image" style="background:linear-gradient(135deg,#2d2d5e,#1a936f);">
+            🧲
+            <span class="product-tag">Specialised</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category">Imaging</div>
+            <h3 class="product-name">NeuroView™ MRI Monitor</h3>
+            <p class="product-desc">MRI-safe patient monitor for 1.5T–3T environments. Fibre optic, RF-shielded, real-time to control room.</p>
+            <div class="product-specs">
+              <span class="spec-tag">MRI Safe</span>
+              <span class="spec-tag">3T Compatible</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orthopaedic -->
+        <div class="product-card reveal delay-1"
+          data-category="ortho"
+          data-icon="🦴"
+          data-name="OrthoFix™ Titanium Implant System"
+          data-desc="Complete modular titanium alloy orthopaedic implant system for hip, knee, and shoulder arthroplasty. 99.9% pure titanium, hydroxyapatite coated, available in 12 size ranges. 15-year warranty."
+          data-features="99.9% pure titanium|Hydroxyapatite coated|12 size range|Hip, knee, shoulder|15-year warranty|CE & FDA cleared">
+          <div class="product-image" style="background:linear-gradient(135deg,#636363,#003d4d);">
+            🦴
+            <span class="product-tag">Best Seller</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category">Orthopaedic</div>
+            <h3 class="product-name">OrthoFix™ Titanium Implant</h3>
+            <p class="product-desc">Modular titanium implants for hip, knee, shoulder. 99.9% pure, HA coated, 12 sizes, 15-yr warranty.</p>
+            <div class="product-specs">
+              <span class="spec-tag">Titanium</span>
+              <span class="spec-tag">HA Coated</span>
+              <span class="spec-tag">15yr Warranty</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-2"
+          data-category="ortho"
+          data-icon="🧩"
+          data-name="SpinePath™ Vertebral Cage"
+          data-desc="PEEK-OPTIMA vertebral interbody fusion cage system with integrated lordosis angles (5°, 8°, 12°, 15°). Radiolucent for imaging clarity. Titanium end-cap screws for primary fixation. CE marked."
+          data-features="PEEK-OPTIMA material|4 lordosis options|Radiolucent design|Titanium end-cap screws|TLIF, PLIF, ALIF|CE marked">
+          <div class="product-image" style="background:linear-gradient(135deg,#2d6a4f,#005f73);">
+            🧩
+          </div>
+          <div class="product-body">
+            <div class="product-category">Orthopaedic</div>
+            <h3 class="product-name">SpinePath™ Vertebral Cage</h3>
+            <p class="product-desc">PEEK-OPTIMA interbody fusion cage, 4 lordosis angles, radiolucent, TLIF/PLIF/ALIF compatible.</p>
+            <div class="product-specs">
+              <span class="spec-tag">PEEK-OPTIMA</span>
+              <span class="spec-tag">Radiolucent</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-3"
+          data-category="ortho"
+          data-icon="🔩"
+          data-name="BioBone™ Cannulated Screw Set"
+          data-desc="Fully cannulated stainless steel and titanium orthopaedic screw set for fracture fixation. Diameters 4.0 to 7.3 mm. Partially and fully threaded variants. Includes 30-piece set with drill and guide."
+          data-features="4.0-7.3 mm diameter|Partial & full thread|30-piece set included|Stainless & titanium|Multi-use drill guide|CDSCO & CE approved">
+          <div class="product-image" style="background:linear-gradient(135deg,#795548,#003d4d);">
+            🔩
+            <span class="product-tag">Economical</span>
+          </div>
+          <div class="product-body">
+            <div class="product-category">Orthopaedic</div>
+            <h3 class="product-name">BioBone™ Cannulated Screw Set</h3>
+            <p class="product-desc">30-piece cannulated screw set 4.0–7.3mm. Stainless and titanium, partial and full thread options.</p>
+            <div class="product-specs">
+              <span class="spec-tag">30-piece Set</span>
+              <span class="spec-tag">CE Approved</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end grid -->
+
+      <div class="no-results" id="no-results">
+        <div class="icon">🔍</div>
+        <h3>No products found</h3>
+        <p>Try a different search term or category.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="compare-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag reveal">Compare</div>
+        <h2 class="section-title reveal delay-1">Flagship <span>Product Comparison</span></h2>
+        <p class="section-desc reveal delay-2">Our top-3 monitoring solutions at a glance.</p>
+        <div class="divider reveal delay-3"></div>
+      </div>
+      <div class="table-wrapper reveal">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>CardioSense™ ECG</th>
+              <th>VitaWatch™ Monitor</th>
+              <th>NeoNatal™ Monitor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Parameters</td><td>ECG 12-lead</td><td>SpO₂, NIBP, ECG, EtCO₂, Temp</td><td>SpO₂, NIBP, Temp, Apnoea</td></tr>
+            <tr><td>Display</td><td>5" colour LCD</td><td>15" touchscreen</td><td>10" colour TFT</td></tr>
+            <tr><td>Wireless</td><td class="yes">✓ WiFi + BT</td><td class="yes">✓ WiFi</td><td class="yes">✓ WiFi</td></tr>
+            <tr><td>AI Analytics</td><td class="yes">✓ Arrhythmia AI</td><td class="yes">✓ Trend analysis</td><td class="yes">✓ Apnoea detection</td></tr>
+            <tr><td>Battery</td><td>8 hours</td><td>4 hours</td><td>6 hours</td></tr>
+            <tr><td>EMR Integration</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>FDA Cleared</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>CE Marked</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Neonatal Mode</td><td class="no">—</td><td class="no">—</td><td class="yes">✓ Dedicated</td></tr>
+            <tr><td>Cloud Holter</td><td class="yes">✓ 14 days</td><td class="no">—</td><td class="no">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="reveal">Need a <span style="color:var(--accent)">Custom Solution?</span></h2>
+      <p class="reveal delay-1">Our engineering team can customise any product or develop new devices to your clinical specifications. Request a consultation today.</p>
+      <div class="cta-buttons reveal delay-2">
+        <a href="contact.html" class="btn-primary">📩 Request a Quote</a>
+        <a href="about.html" class="btn-outline">🏭 About Our Factory</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-text">Med<span>Vance</span> India</span>
+        <p>World-class medical device manufacturer headquartered in Pune, India.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">💼</a>
+          <a href="#" class="social-link">🐦</a>
+          <a href="#" class="social-link">▶️</a>
+          <a href="#" class="social-link">📘</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html#team">Leadership</a></li>
+          <li><a href="about.html#certs">Certifications</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="products.html">Surgical</a></li>
+          <li><a href="products.html">Diagnostics</a></li>
+          <li><a href="products.html">Imaging</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="contact.html">Get a Quote</a></li>
+          <li><a href="contact.html">Sales</a></li>
+          <li><a href="contact.html">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 MedVance India Pvt. Ltd. · All Rights Reserved · Pune, Maharashtra, India</p>
+      <div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+  </footer>
+
+  <!-- Product Modal -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-icon" style="position:relative;z-index:1;">🔬</span>
+        <button class="modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-category modal-cat"></div>
+        <h2 class="modal-name"></h2>
+        <p class="modal-desc"></p>
+        <div class="modal-features">
+          <h4>Key Features</h4>
+          <ul class="modal-feature-list"></ul>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="contact.html" class="btn-primary" style="flex:1;min-width:160px;justify-content:center;">📩 Request Quote</a>
+          <button onclick="document.getElementById('product-modal').classList.remove('open');document.body.style.overflow='';" class="btn-outline" style="flex:1;min-width:120px;justify-content:center;background:transparent;cursor:pointer;border:2px solid var(--light-gray);color:var(--dark-text);">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="back-to-top">↑</button>
+  <script src="js/main.js"></script>
+  <script>
+    // Init particle canvas for hero
+    (function() {
+      const canvas = document.getElementById('products-hero-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+      resize();
+      window.addEventListener('resize', resize);
+      const pts = Array.from({length:60},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:(Math.random()-.5)*.4,dy:(Math.random()-.5)*.4,r:Math.random()*2+.5,a:Math.random()*.4+.1}));
+      function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pts.forEach(p=>{ p.x+=p.dx; p.y+=p.dy; if(p.x<0||p.x>canvas.width)p.dx*=-1; if(p.y<0||p.y>canvas.height)p.dy*=-1; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=`rgba(148,210,189,${p.a})`; ctx.fill(); });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // Live search
+    (function() {
+      const input = document.getElementById('product-search');
+      const countEl = document.getElementById('result-count');
+      const noResults = document.getElementById('no-results');
+      const cards = document.querySelectorAll('.product-card');
+      if (!input) return;
+      input.addEventListener('input', function() {
+        const q = this.value.toLowerCase().trim();
+        const activeFilter = document.querySelector('.filter-tab.active').dataset.filter;
+        let visible = 0;
+        cards.forEach(card => {
+          const text = (card.dataset.name + ' ' + card.dataset.category + ' ' + card.dataset.desc + ' ' + card.dataset.features).toLowerCase();
+          const catMatch = activeFilter === 'all' || card.dataset.category === activeFilter;
+          const searchMatch = !q || text.includes(q);
+          if (catMatch && searchMatch) { card.classList.remove('hidden'); visible++; }
+          else { card.classList.add('hidden'); }
+        });
+        countEl.textContent = `Showing ${visible} product${visible !== 1 ? 's' : ''}`;
+        noResults.classList.toggle('show', visible === 0);
+      });
+
+      // Update count on filter change
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          setTimeout(() => {
+            const visible = document.querySelectorAll('.product-card:not(.hidden)').length;
+            countEl.textContent = `Showing ${visible} product${visible !== 1 ? 's' : ''}`;
+            noResults.classList.toggle('show', visible === 0);
+          }, 50);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
